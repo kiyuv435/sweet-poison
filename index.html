@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Sweet Poison</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- FUNDO ANIMADO -->
+<div id="background-animation"></div>
+
+<!-- TELA INICIAL -->
+<div class="tela ativa" id="home">
+    <h1>Sweet Poison</h1>
+    <p class="subtitulo">Escolha seu portal...</p>
+
+    <div class="emojis">
+        <span onclick="abrirTema('flores')">🌸</span>
+        <span onclick="abrirTema('lacos')">🎀</span>
+        <span onclick="abrirTema('aranha')">🕷️</span>
+        <span onclick="abrirTema('teia')">🕸️</span>
+        <span onclick="abrirTema('morango')">🍓</span>
+    </div>
+</div>
+
+<!-- TELA TEMA -->
+<div class="tela" id="tema">
+    <h1 id="tituloTema"></h1>
+    <p id="fraseTema"></p>
+
+    <div class="escolhas">
+        <button onclick="modoSombrio()">🌑 Caminho Sombrio</button>
+        <button onclick="modoFofo()">🌸 Caminho Fofo</button>
+    </div>
+
+    <button class="voltar" onclick="voltar()">Voltar</button>
+</div>
+
+<script>
+let temaAtual = "";
+
+function abrirTema(tema) {
+    temaAtual = tema;
+
+    document.getElementById("home").classList.remove("ativa");
+    document.getElementById("tema").classList.add("ativa");
+
+    const titulos = {
+        flores: "🌸 Jardim Secreto",
+        lacos: "🎀 Laços Encantados",
+        aranha: "🕷️ Teia do Destino",
+        teia: "🕸️ Entre Fios",
+        morango: "🍓 Doce Tentação"
+    };
+
+    const frases = {
+        flores: "Pétalas escondem mistérios.",
+        lacos: "Laços unem destinos.",
+        aranha: "Algo observa nas sombras.",
+        teia: "Cada fio guarda um segredo.",
+        morango: "Doce por fora. Intenso por dentro."
+    };
+
+    document.getElementById("tituloTema").innerText = titulos[tema];
+    document.getElementById("fraseTema").innerText = frases[tema];
+
+    iniciarAnimacao(tema);
+}
+
+function voltar() {
+    document.getElementById("tema").classList.remove("ativa");
+    document.getElementById("home").classList.add("ativa");
+    document.body.className = "";
+    document.getElementById("background-animation").innerHTML = "";
+}
+
+function iniciarAnimacao(tipo) {
+    const bg = document.getElementById("background-animation");
+    bg.innerHTML = "";
+
+    let emoji = "✨";
+
+    if (tipo === "flores") emoji = "🌸";
+    if (tipo === "lacos") emoji = "🎀";
+    if (tipo === "aranha") emoji = "🕷️";
+    if (tipo === "teia") emoji = "🕸️";
+    if (tipo === "morango") emoji = "🍓";
+
+    for (let i = 0; i < 20; i++) {
+        let span = document.createElement("span");
+        span.innerText = emoji;
+        span.classList.add("float");
+        span.style.left = Math.random() * 100 + "vw";
+        span.style.animationDuration = (3 + Math.random() * 5) + "s";
+        bg.appendChild(span);
+    }
+}
+
+function modoSombrio() {
+    document.body.className = "sombrio";
+}
+
+function modoFofo() {
+    document.body.className = "fofo";
+}
+</script>
+
+</body>
+</html>
